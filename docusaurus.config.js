@@ -60,7 +60,7 @@ const config = {
         title: 'MINSGY.LOG',
         logo: {
           alt: 'Minsgy Logo',
-          src: 'img/logo.svg',
+          src: 'img/logo.png',
         },
         items: [
           {
