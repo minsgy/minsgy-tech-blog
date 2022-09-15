@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Minsgy 개발 블로그',
+  title: 'Minsgy\'s log',
   tagline: '주니어 프론트엔드 개발자로서 공부하고 경험한 내용을 기록합니다.',
   url: 'https://minsgy.github.io',
   baseUrl: '/',
@@ -40,6 +40,9 @@ const config = {
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: {
+          id:'blog',
+          blogSidebarCount: 'ALL',
+          blogSidebarTitle: '기술 아티클 목록',
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
@@ -48,6 +51,10 @@ const config = {
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
+        },
+        sitemap: {
+          changefreq: 'weekly',
+          priority: 0.5,
         },
       }),
     ],
