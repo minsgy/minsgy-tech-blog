@@ -1,9 +1,7 @@
 ---
-slug: JavaScript deepdive 1week
-title: JavaScript 딥다이브 1주차
-authors:
-  name: Minsgy
-  title: JavaScript DeepDive
+slug: JavaScript Runtime에 대하여
+title: JavaScript Runtime에 대하여
+authors: [minsgy]
 tags: [JavaScript, DeepDive, Study]
 ---
 
@@ -34,6 +32,7 @@ tags: [JavaScript, DeepDive, Study]
 이러한 문제는 비동기를 통해 동적인 웹 페이지를 구성하면서 변화 된 데이터만 받아와 순간적으로 깜빡이는 현상이 없어져 UX로도 좋은 결과를 낼 수 있었습니다. 이러한 결과로 웹 브라우저에서도 데스크탑 애플리케이션과 유사한 퍼포먼스를 내며 주목받기 시작했습니다.
 
 그러나 표준화되지 않은 JavaScript가 브라우저에 적용되면서 크로스 브라우징 이슈가 발생하기 시작했고 모든 브라우저에서 정상 작동하는 웹 페이지 구성이 어려웠습니다.
+
 ![](https://i.imgur.com/IXojwIy.png)
 
 이를 보완하기 위해 `ECMAScript` 명으로 JavaScript 표준화가 진행되어 현재 많이 사용하는 `ES6`, `ES5`와 같은 문법들이 사용되고 있습니다.
@@ -134,4 +133,4 @@ console.log(moment.version);
 [deno](https://deno.land/)
 [bun](https://bun.sh/)  
 [deno vs node.js 비교하기](https://www.youtube.com/watch?v=Uc03tAqC6fQ)  
-여기어때 Tech Blog : https://techblog.gccompany.co.kr/%ED%95%9Cbun-%EC%8D%A8%EB%B3%B4%EB%8A%94-%EA%B1%B0-%EC%96%B4%EB%95%8C-fa3cb32ac76f
+[여기어때 Tech Blog](https://techblog.gccompany.co.kr/%ED%95%9Cbun-%EC%8D%A8%EB%B3%B4%EB%8A%94-%EA%B1%B0-%EC%96%B4%EB%95%8C-fa3cb32ac76f)
