@@ -12,15 +12,20 @@ const FeatureList: FeatureItem[] = [
   {
     title: "기록",
     Svg: require("@site/static/img/undraw_programmer.svg").default,
-    description: <>제가 프로젝트를 진행하며 실제 경험했던 것들을 기록합니다.</>,
+    description: (
+      <>
+        제가 프로젝트를 진행하며 <br />
+        실제 경험했던 것들을 기록합니다.
+      </>
+    ),
   },
   {
     title: "회고",
     Svg: require("@site/static/img/undraw_code_review.svg").default,
     description: (
       <>
-        지나칠 수 있는 것들을 지나치지 않고, 놓칠 수 있는 것들을 놓치지 않기
-        위해 회고합니다.
+        지나칠 수 있는 것들을 지나치지 않고, <br />
+        놓칠 수 있는 것들을 놓치지 않기 위해 회고합니다.
       </>
     ),
   },
@@ -29,7 +34,8 @@ const FeatureList: FeatureItem[] = [
     Svg: require("@site/static/img/undraw_build_your.svg").default,
     description: (
       <>
-        더 나은 개발자가 되기 위해 여러가지 시도를 하고 성장의 발판을 만듭니다.
+        더 나은 개발자가 되기 위해 여러 시도를 하고
+        <br /> 성장의 발판을 만듭니다.
       </>
     ),
   },
