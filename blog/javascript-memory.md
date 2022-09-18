@@ -25,8 +25,6 @@ JavaScript에서 데이터는 크게 2가지로 나눌 수 있습니다.
 생성한 객체(Object)에 필요한 **메모리를 할당**하고, 작성한 코드를 통해 변수를 읽거나 사용하는 과정으로 **메모리를 사용**합니다. 이후 JS 엔진을 통해 **할당 된 메모리가 해제**되어 메모리를 사용가능한 상태로 만들게 됩니다.
 
 
-
-
 ### 원시 타입 (Primitive Type)
 
 ![image](https://user-images.githubusercontent.com/60251579/190897442-875ae942-8993-41f0-b4f5-c73a3b2e16a3.png)
@@ -72,16 +70,13 @@ console.log(a) // { name: "최민석" }
 객체를 생성하고 관리하는 방법은 비용이 많이 들게 됩니다. 그래서 **객체를 변경 가능한 값으로 설계**했습니다.
 JavaScript에서는 이를 최소화하여 **메모리 효율적 소비를 높이고 성능을 개선**합니다.
 
-그러나 이러한 설계로 **여러 개의 식별자가 하나의 객체를 공유**하여 영향을 끼치는 문제가 발생합니다.
+그러나 **여러 개의 식별자가 하나의 객체를 공유**하여 영향을 끼치는 문제가 발생합니다.
 
 ### 참조값으로 인한 문제 
 
-
 ![image](https://user-images.githubusercontent.com/60251579/190900382-bfc3ab00-be1f-4195-80e8-048a374833ac.png)
 
-
 그림과 같이 `getDeveloper()` 함수는 `developer` 객체의 `name` property를 가리키고 있습니다. 
-
 이를 통해 발생하는 문제점을 확인해봅니다.
 
 ```js
@@ -100,15 +95,23 @@ developer.name = "umin"
 console.log(getDeveloperName()) // "umin"
 ```
 
-`call by reference`를 기반하여 여러 개의 식별
+`call by reference`를 기반하여 다중 식별자에 대한 문제가 발생합니다.
 
-위와 같은 코드를 통해 의존성(dependency)를 갖게 되어 코드 복잡성이 높아지는 문제가 발생합니다.
-
-
-
-
-
+하나의 로직에 **의존성(dependency)** 을 가지고 코드 복잡성이 높아지는 문제가 발생하고 의도하지 않은 값 변경이 일어난다면 디버깅에도 어려움을 가져 **유지보수에 있어서도 좋지 않은 결과**를 보여줍니다.
 
 ### 깊은 복사 vs 얕은 복사
 
-##
+위와 같은 **원시 타입과 객체 타입**의 복사 방식이 다르게 됩니다.
+
+
+
+
+
+### 메모리 누수를 어떻게 관리할까?
+
+
+
+
+## Reference
+
+[JavaScript는 어떻게 작동하는가?](https://engineering.huiseoul.com/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%9E%91%EB%8F%99%ED%95%98%EB%8A%94%EA%B0%80-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B4%80%EB%A6%AC-4%EA%B0%80%EC%A7%80-%ED%9D%94%ED%95%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%88%84%EC%88%98-%EB%8C%80%EC%B2%98%EB%B2%95-5b0d217d788d)
