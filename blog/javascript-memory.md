@@ -31,14 +31,36 @@ JavaScript에서 데이터는 크게 2가지로 나눌 수 있습니다.
 
 ![image](https://user-images.githubusercontent.com/60251579/190897442-875ae942-8993-41f0-b4f5-c73a3b2e16a3.png)
 
-원시 타입의 종류로 `string`, `number`, `boolean`, `undefined`, `null`, 객체와 함수를 참조하는 곳이 존재합니다.
+원시 타입의 종류로 `string`, `number`, `boolean`, `undefined`, `null`, `symbol`, 참조
 
 여기서 말하는 원시 값의 변경이 불가능하다는 건, **"메모리 상 할당 된 변수 값"** 을 변경할 수 없다는 의미입니다. 
 
+이러한 특징으로 원시 타입은 `불변성` 특징을 갖게 되고, 값을 복사한다면 새로운 메모리 주소를 할당하여 **call by value** 방식으로 복사되어 사용하게 됩니다.
+
+위와 같은 의미로 아래와 같이 코드를 사용할 수 있습니다.
+
+```js
+	// 기존 저장 된 메모리에 값이 저장되는 것이 아닌 새로운 메모리 주소를 할당합니다.
+	let example = 3
+	example = 5
+	console.log(example) // 5 
 
 
+	// 같은 값을 가지고 있지만, 서로 다른 메모리 주소를 갖고 있는 call by value 
+	let a = 1
+	let b = a
+
+	console.log(a === b) // true 
+```
+
+이어서 객체(object)와 함수(function)**는 힙(heap)에 저장되지만, 참조(Reference)는 스택(Stack)에 저장하여 활용**하게 됩니다. 
 
 ### 객체(참조) 타입
+
+![image](https://user-images.githubusercontent.com/60251579/190900382-bfc3ab00-be1f-4195-80e8-048a374833ac.png)
+
+객체 타입의 
+
 
 ### 깊은 복사 vs 얕은 복사
 
