@@ -38,7 +38,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/minsgy/minsgy.github.io/edit/main/',
         },
         blog: {
           id:'blog',
@@ -48,7 +48,8 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/minsgy/minsgy.github.io/edit/main/',
+          path: 'blog',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -71,12 +72,12 @@ const config = {
           src: 'img/logo.png',
         },
         items: [
-          {
-            type: 'doc',
-            docId: 'intro',
-            position: 'left',
-            label: '독서노트',
-          },
+          // {
+          //   type: 'doc',
+          //   docId: 'intro',
+          //   position: 'left',
+          //   label: '독서노트',
+          // },
           {to: '/blog', label: '기록장', position: 'left'},
           {to: '/about', label: '소개', position: 'left'},
           {
