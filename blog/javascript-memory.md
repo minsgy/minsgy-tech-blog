@@ -57,9 +57,54 @@ JavaScript에서 데이터는 크게 2가지로 나눌 수 있습니다.
 
 ### 객체(참조) 타입
 
+객체는 변경 가능한 값(mutable value)입니다. 
+
+앞서 사용하는  `const` 키워드는 상수를 만드는 걸 목적으로 합니다. 
+선언한 변수 재할당이 불가능하지만 **객체에 할당한 변수(property)** 는 변경 가능합니다.
+
+```js
+const a = {}
+a = 3 // @ERROR 상수로 선언되어 재할당이 불가능합니다.
+a.name = "최민석" // 객체를 할당한 변수에 재할당하는 것이 아니기때문에 가능합니다.
+console.log(a) // { name: "최민석" }
+```
+
+객체를 생성하고 관리하는 방법은 비용이 많이 들게 됩니다. 그래서 **객체를 변경 가능한 값으로 설계**했습니다.
+JavaScript에서는 이를 최소화하여 **메모리 효율적 소비를 높이고 성능을 개선**합니다.
+
+그러나 이러한 설계로 **여러 개의 식별자가 하나의 객체를 공유**하여 영향을 끼치는 문제가 발생합니다.
+
+### 참조값으로 인한 문제 
+
+
 ![image](https://user-images.githubusercontent.com/60251579/190900382-bfc3ab00-be1f-4195-80e8-048a374833ac.png)
 
-객체 타입의 
+
+그림과 같이 `getDeveloper()` 함수는 `developer` 객체의 `name` property를 가리키고 있습니다. 
+
+이를 통해 발생하는 문제점을 확인해봅니다.
+
+```js
+// 서로 다른 값이 영향을 받는 문제가 발생합니다.
+// 이를 통해 코드 복잡성이 늘어나게 됩니다.
+const developer = {
+	name: "minsgy",
+	age: "26"
+}
+
+function getDeveloperName() {
+	return developer.name
+}
+console.log(getDeveloperName()) // "minsgy"
+developer.name = "umin"
+console.log(getDeveloperName()) // "umin"
+```
+
+위와 같은 코드를 통해 의존성(dependency)를 갖게 되어 코드 복잡성이 높아지는 문제가 발생합니다.
+
+이러한 방식은 `call by reference`
+
+
 
 
 ### 깊은 복사 vs 얕은 복사
