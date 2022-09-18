@@ -100,9 +100,11 @@ developer.name = "umin"
 console.log(getDeveloperName()) // "umin"
 ```
 
+`call by reference`를 기반하여 여러 개의 식별
+
 위와 같은 코드를 통해 의존성(dependency)를 갖게 되어 코드 복잡성이 높아지는 문제가 발생합니다.
 
-이러한 방식은 `call by reference`
+
 
 
 
