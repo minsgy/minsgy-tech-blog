@@ -53,7 +53,7 @@ JavaScript에서 데이터는 크게 2가지로 나눌 수 있습니다.
 
 이어서 객체(object)와 함수(function)**는 힙(heap)에 저장되지만, 참조(Reference)는 스택(Stack)에 저장하여 활용**하게 됩니다. 
 
-### 객체(참조) 타입
+### 객체(참조) 타입 (Object Type) 
 
 객체는 변경 가능한 값(mutable value)입니다. 
 
@@ -99,19 +99,85 @@ console.log(getDeveloperName()) // "umin"
 
 하나의 로직에 **의존성(dependency)** 을 가지고 코드 복잡성이 높아지는 문제가 발생하고 의도하지 않은 값 변경이 일어난다면 디버깅에도 어려움을 가져 **유지보수에 있어서도 좋지 않은 결과**를 보여줍니다.
 
-### 깊은 복사 vs 얕은 복사
 
-위와 같은 **원시 타입과 객체 타입**의 복사 방식이 다르게 됩니다.
+### 메모리 누수가 발생하는 경우
+
+JavaScript는 할당된 메모리를 사용하지 않는 경우 [GC(Garbage collector)](https://developer.mozilla.org/ko/docs/Web/JavaScript/Memory_Management)에 의해 메모리 할당을 추적하고 자동으로 메모리를 반환시키는 역할을 하게 됩니다. 그렇지만 이러한 과정에 있어서 메모리가 사용되는 지 추정하기 때문에 때때로 **결정불가능(undecidable) 상태**가 발생하게 됩니다.
+
+대부분의 GC는 모든 변수가 스코프(Scope)를 벗어났을 때 더 이상 접근 불가능한 메모리를 수집하지만 스코프가 유지되는 경우가 생긴다면 메모리를 반환하지 않는 문제가 발생하게 됩니다.
+
+결국 GC가 의존하는 알고리즘은 **여러 객체와의 참조(Reference)** 를 통한 개념입니다. 
+이로 인해 발생할 수 있는 문제는 다음과 같습니다.
+
+#### 순환참조 (해결)
+
+![image](https://user-images.githubusercontent.com/60251579/190912024-41c28c81-2deb-46e1-9596-49e1d1eea2e8.png)
+
+아래 예제에서 두 객체가 생성되게 되면서 서로를 참조하고 **순환참조가 생성**되게 됩니다.
+
+사실상 함수 호출 이후, 스코프(Scope)를 벗어나게 되면서 사용하지 않게 되지만 두 객체 다 한 번은 참조한 걸로 간주되어 GC(Gabage collector)가 적용되지 않는 문제가 발생합니다.
+
+```js
+function f() {  
+  var o1 = {};  
+  var o2 = {};  
+  o1.p = o2; // o1은 o2를 참조함  
+  o2.p = o1; // o2는 o1을 참조함. 이를 통해 순환 참조가 만들어짐.  
+}
+
+f();
+```
+
+2012년 기준으로 현대 브라우저는 해당 순환참조를 해결할 수 있는 [Mark-Sweep 알고리즘](https://www.geeksforgeeks.org/mark-and-sweep-garbage-collection-algorithm/)이 적용되면서 순환참조 문제가 해결되었습니다. 그렇지만 React와 같이 컴포넌트 간 순환 참조가 일어날 경우 이슈가 발생할 수 있기 때문에 **여전히 지양해야 하는 부분**입니다.
+
+
+#### 전역 변수
+
+선언되지 않는 변수를 참조하게 된다면 전역 객체에 새로운 변수를 생성합니다.
+`window` 객체를 참조하여 GC를 통한 메모리가 정리되지 않아 규모가 크다면 조심해야 합니다.
+
+```js
+function foo(arg) {
+	name = "minsgy" // window.name
+}
+```
+
+
+#### setInterval, setTimeout, callback
+
+```js
+// 참조한 Node나 데이터가 더 필요로 하지않는 timer를 사용한 결과를 보여줍니다.
+let serverData;
+
+setInterval(function() {  
+let renderer = document.getElementById('renderer');  
+	if(renderer) {  
+		renderer.innerHTML = JSON.stringify(serverData);  
+	}  
+}, 5000); // 매 5초 마다 실행
+```
+
+위 코드를 통해 renderer 객체는 어느 시점에 다른 것으로 대체되거나 제거할 수 있으며 `Interval`로 쌓인 코드는 필요가 없게 됩니다. 그러나 `Interval`은 활성화된 상태로 GC를 통한 메모리가 정리되지 않게 됩니다. 추가적으로 `serverData` 데이터도 반환되지 않는 문제가 발생합니다.
+
+```js
+// 2번째. Observer Handler 제거하기
+
+```
 
 
 
 
 
-### 메모리 누수를 어떻게 관리할까?
+
+## bonus. 리액트에서
+
+
+
 
 
 
 
 ## Reference
 
-[JavaScript는 어떻게 작동하는가?](https://engineering.huiseoul.com/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%9E%91%EB%8F%99%ED%95%98%EB%8A%94%EA%B0%80-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B4%80%EB%A6%AC-4%EA%B0%80%EC%A7%80-%ED%9D%94%ED%95%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%88%84%EC%88%98-%EB%8C%80%EC%B2%98%EB%B2%95-5b0d217d788d)
+[JavaScript는 어떻게 작동하는가?](https://engineering.huiseoul.com/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%9E%91%EB%8F%99%ED%95%98%EB%8A%94%EA%B0%80-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B4%80%EB%A6%AC-4%EA%B0%80%EC%A7%80-%ED%9D%94%ED%95%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%88%84%EC%88%98-%EB%8C%80%EC%B2%98%EB%B2%95-5b0d217d788d)  
+[불변 객체](https://ui.toast.com/posts/ko_20220217)
