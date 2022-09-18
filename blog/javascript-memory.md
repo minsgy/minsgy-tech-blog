@@ -146,6 +146,7 @@ function foo(arg) {
 #### setInterval, setTimeout, callback
 
 ```js
+// 1번째. Observer Time API
 // 참조한 Node나 데이터가 더 필요로 하지않는 timer를 사용한 결과를 보여줍니다.
 let serverData;
 
@@ -155,21 +156,73 @@ let renderer = document.getElementById('renderer');
 		renderer.innerHTML = JSON.stringify(serverData);  
 	}  
 }, 5000); // 매 5초 마다 실행
+
 ```
 
 위 코드를 통해 renderer 객체는 어느 시점에 다른 것으로 대체되거나 제거할 수 있으며 `Interval`로 쌓인 코드는 필요가 없게 됩니다. 그러나 `Interval`은 활성화된 상태로 GC를 통한 메모리가 정리되지 않게 됩니다. 추가적으로 `serverData` 데이터도 반환되지 않는 문제가 발생합니다.
 
+이를 해결하기 위해서 `clearInterval`를 통해 데이터를 반환해야 합니다.
+
+
 ```js
 // 2번째. Observer Handler 제거하기
-
+const element = ...
+const onClick = () => {...}
+element.addEventListener('click', onClick) // event 등록
+element.removeEventListener('click', onClick) // event 제거
 ```
 
+현대 브라우저에서는 `removeEvent`를 호출하지 않아도 순환참조를 탐지하여 GC에서 자동 처리하지만 구형 브라우저에서 동작할 때도 메모리 누수가 없도록 신경써줘야 합니다..
+
+#### 이 외에도... 
+
+**클로져로 인한 메모리 누수(중요)**, **Internal Node로 인한 DOM 참조**에 대한 문제가 있습니다. (추후 업데이트 예정)
 
 
 
+## React 순환 참조 문제
+
+React에서 여러 컴포넌트들을 모듈화하면서 발생할 수 있는 **모듈 의존성 문제**입니다.
+
+코드를 파일로 분리하여 이것을 다른 파일이 불러와 사용하기 위해서 이런 식으로 **ES6의 모듈 시스템을 활용해 컴포넌트 단위 개발**을 하게 됩니다.
+
+```js
+// A -> B -> C -> A 순환 참조 발생
+// Uncaught ReferenceError: Cannot access 'A' before initialization
+// A.js
+import B from './B.js'
+export const A = {
+	B()
+	...
+}
+
+// B.js
+import C from './A.js'
+export const B = {
+	C()
+	...
+}
+
+// C.js
+import A from './B.js'
+export const C = {
+	A()
+	...
+}
+```
+
+문제는 모듈 간의 서로 참조하는 경우 초기화 순서에 의해 순환 참조가 발생하게 됩니다. Webpack에서 모듈을 처리하는 방식은 의존성 맨 마지막 순서에 있는 모듈부터 초기화하게 되어 이러한 순환 참조 문제가 발생하게 됩니다. 
+
+**즉, `B.js` 파일의 코드가 맨 먼저 실행되면서 초기화가 되지도 않은  `A.js`를 참조하면서 발생하는 문제입니다.** 결국에는 순환참조라는 문제를 해결하기 위해서 고민해야 합니다.
 
 
-## bonus. 리액트에서
+### 해결 방법
+
+가장 간단한 건 원인인 순환참조를 제거하기 위한 방법으로 React가 `Top-down` 방식의 컴포넌트 흐름을 가진다면 해결과 동시에 예방까지 할 수 있습니다.
+
+전반적인 데이터의 흐름을 Atomic Component 방식으로 구성하여 제공하던지 UI 컴포넌트와 Service 컴포넌트를 구분하여 API 호출을 하는 방식도 있는 만큼 여러 존재합니다. 
+
+프로젝트를 진행하면서 순환참조가 문제를 꼭 일으키지 않을 수 있지만 추후 프로젝트가 커지면서 발생할 수 있는 이슈들을 예방하기 위한 방향으로 인지하는 게 유지보수에 있어서도 좋아보입니다.
 
 
 
@@ -179,5 +232,6 @@ let renderer = document.getElementById('renderer');
 
 ## Reference
 
+[JavaScript 엔진에 대하여](https://engineering.huiseoul.com/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%9E%91%EB%8F%99%ED%95%98%EB%8A%94%EA%B0%80-v8-%EC%97%94%EC%A7%84%EC%9D%98-%EB%82%B4%EB%B6%80-%EC%B5%9C%EC%A0%81%ED%99%94%EB%90%9C-%EC%BD%94%EB%93%9C%EB%A5%BC-%EC%9E%91%EC%84%B1%EC%9D%84-%EC%9C%84%ED%95%9C-%EB%8B%A4%EC%84%AF-%EA%B0%80%EC%A7%80-%ED%8C%81-6c6f9832c1d9)  
 [JavaScript는 어떻게 작동하는가?](https://engineering.huiseoul.com/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%9E%91%EB%8F%99%ED%95%98%EB%8A%94%EA%B0%80-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B4%80%EB%A6%AC-4%EA%B0%80%EC%A7%80-%ED%9D%94%ED%95%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%88%84%EC%88%98-%EB%8C%80%EC%B2%98%EB%B2%95-5b0d217d788d)  
 [불변 객체](https://ui.toast.com/posts/ko_20220217)
