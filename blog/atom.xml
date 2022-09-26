@@ -2,11 +2,25 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://minsgy.github.io/blog</id>
     <title>Minsgy's log Blog</title>
-    <updated>2022-09-18T10:51:29.000Z</updated>
+    <updated>2022-09-25T14:21:21.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://minsgy.github.io/blog"/>
     <subtitle>Minsgy's log Blog</subtitle>
     <icon>https://minsgy.github.io/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[JavaScript의 생명주기(Scope)]]></title>
+        <id>JavaScript의 생명주기(Scope)</id>
+        <link href="https://minsgy.github.io/blog/JavaScript의 생명주기(Scope)"/>
+        <updated>2022-09-25T14:21:21.000Z</updated>
+        <summary type="html"><![CDATA[서론]]></summary>
+        <author>
+            <name>Choi Minseok</name>
+            <uri>https://github.com/minsgy</uri>
+        </author>
+        <category label="JavaScript" term="JavaScript"/>
+        <category label="DeepDive" term="DeepDive"/>
+        <category label="Study" term="Study"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[JavaScript 메모리 관리하기]]></title>
         <id>JavaScript 메모리 관리하기</id>

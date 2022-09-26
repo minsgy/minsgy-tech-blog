@@ -4,10 +4,20 @@
         <title>Minsgy's log Blog</title>
         <link>https://minsgy.github.io/blog</link>
         <description>Minsgy's log Blog</description>
-        <lastBuildDate>Sun, 18 Sep 2022 10:51:29 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 25 Sep 2022 14:21:21 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ko</language>
+        <item>
+            <title><![CDATA[JavaScript의 생명주기(Scope)]]></title>
+            <link>https://minsgy.github.io/blog/JavaScript의 생명주기(Scope)</link>
+            <guid>JavaScript의 생명주기(Scope)</guid>
+            <pubDate>Sun, 25 Sep 2022 14:21:21 GMT</pubDate>
+            <description><![CDATA[서론]]></description>
+            <category>JavaScript</category>
+            <category>DeepDive</category>
+            <category>Study</category>
+        </item>
         <item>
             <title><![CDATA[JavaScript 메모리 관리하기]]></title>
             <link>https://minsgy.github.io/blog/JavaScript 메모리 관리하기</link>
