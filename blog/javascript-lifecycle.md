@@ -1,6 +1,6 @@
 ---
-slug: JavaScript 생명주기(Scope)
-title: JavaScript 생명주기(Scope)
+slug: JavaScript Scope와 Closure
+title: JavaScript Scope와 Closure
 authors: [minsgy]
 tags: [JavaScript, DeepDive, Study]
 ---
@@ -97,9 +97,9 @@ bar(); // 1
 
 결과적으로 함수를 어디에서 호출하였는지 스코프 결정에는 아무런 의미도 주지 않으며 예제와 같이 함수 `bar`는 전역에 선언되어서 전역 변수 값 `x = 1`을 2번 출력하게 됩니다.
 
-위 함수와 같이 함수를 호출하는 것이 아니라 반환하며 **클로져(Closer)**를 예시를 들어보겠습니다.
+위 함수와 같이 함수를 호출하는 것이 아니라 반환하며 **클로져(Closure)**를 예시를 들어보겠습니다.
 
-### 클로져(Closer)
+### 클로져(Closure)
 
 ```js
 function outerFunc() {
@@ -124,7 +124,7 @@ inner(); // 10
 
 ![image](https://user-images.githubusercontent.com/60251579/192228970-e36c0242-52d4-4cfe-93c3-f9c30698b421.png)
 
-이와 같이 **반환 된 내부 함수가 자신이 선언됐을 때의 환경인 스코프를 기억하여, 이전 환경 밖에서 호출되어도 그 환경에 접근할 수 있는 함수**를 **클로져(Closer)** 라고 합니다.
+이와 같이 **반환 된 내부 함수가 자신이 선언됐을 때의 환경인 스코프를 기억하여, 이전 환경 밖에서 호출되어도 그 환경에 접근할 수 있는 함수**를 **클로져(Closure)** 라고 합니다.
 
 ## 클로져는 어디에 사용하나요?
 
