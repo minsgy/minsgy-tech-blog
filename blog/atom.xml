@@ -8,9 +8,9 @@
     <subtitle>Minsgy's log Blog</subtitle>
     <icon>https://minsgy.github.io/img/favicon.ico</icon>
     <entry>
-        <title type="html"><![CDATA[JavaScript의 생명주기(Scope)]]></title>
-        <id>JavaScript의 생명주기(Scope)</id>
-        <link href="https://minsgy.github.io/blog/JavaScript의 생명주기(Scope)"/>
+        <title type="html"><![CDATA[JavaScript 생명주기(Scope)]]></title>
+        <id>JavaScript 생명주기(Scope)</id>
+        <link href="https://minsgy.github.io/blog/JavaScript 생명주기(Scope)"/>
         <updated>2022-09-25T14:21:21.000Z</updated>
         <summary type="html"><![CDATA[서론]]></summary>
         <author>

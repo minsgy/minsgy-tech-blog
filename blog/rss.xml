@@ -9,9 +9,9 @@
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ko</language>
         <item>
-            <title><![CDATA[JavaScript의 생명주기(Scope)]]></title>
-            <link>https://minsgy.github.io/blog/JavaScript의 생명주기(Scope)</link>
-            <guid>JavaScript의 생명주기(Scope)</guid>
+            <title><![CDATA[JavaScript 생명주기(Scope)]]></title>
+            <link>https://minsgy.github.io/blog/JavaScript 생명주기(Scope)</link>
+            <guid>JavaScript 생명주기(Scope)</guid>
             <pubDate>Sun, 25 Sep 2022 14:21:21 GMT</pubDate>
             <description><![CDATA[서론]]></description>
             <category>JavaScript</category>
