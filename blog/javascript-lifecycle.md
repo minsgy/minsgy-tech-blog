@@ -229,7 +229,7 @@ useEffect 뿐만 아니라 useCallback에서도 클로저 개념을 활용하여
 ### bonus. useState의 업데이트 구현 방식
 
 ```jsx
-let _value; // Array
+let _value;
 
 export useState(initialValue){
   if (_value === 'undefined') {
@@ -245,9 +245,7 @@ export useState(initialValue){
 
 useState 밖에 선언된 변수 `_value`가 있습니다. useState에서는 초기값(initialValue)를 받아 만약 기존 `_value` 값이 없으면 초기값으로 세팅하게 됩니다. setValue 함수는 받아오는 값으로 전역 `_value`를 업데이트하게 되면서  `_value`와 `setValue` 함수를 배열 형태로 반환한다. useState가 어디에서 실행되었건, 클로저를 통해 `_value` 값에 접근할 수 있는 구조를 가지게 됩니다.
 
-결과적으로 useState를 통해 생성한 상태를 접근하고 유지하기 위해서 useState 바깥쪽에 state를 저장하여 선언 된 컴포넌트를 구별할 수 있는 key로 접근하게 되고 배열 형식으로 저장되게 됩니다. useState 안에서 선언되는 상태들은 `_value` 배열에 순서대로 저장되는 원리입니다.
-
-
+결과적으로 useState를 통해 생성한 상태를 접근하고 유지하기 위해서 useState 바깥쪽에 state를 저장하여 선언 된 컴포넌트를 구별할 수 있는 key로 접근하게 되고 배열 형식으로 저장되게 됩니다. useState 안에서 선언되는 상태들은 `_value` 배열에 순서대로 저장되는 원리입니다. (예시는 임의 값이긴 하다..)
 
 
 
