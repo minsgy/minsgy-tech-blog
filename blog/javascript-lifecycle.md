@@ -101,13 +101,38 @@ bar(); // 1
 
 결과적으로 함수를 어디에서 호출하였는지 스코프 결정에는 아무런 의미도 주지 않으며 예제와 같이 함수 `bar`는 전역에 선언되어서 전역 변수 값 `x = 1`을 2번 출력하게 됩니다.
 
+위 함수와 같이 함수를 호출하는 것이 아니라 반환하며 **클로져(Closer)**를 예시를 들어보겠습니다.
+
+### 클로져(Closer)
+
+```js
+function outerFunc() { 
+	var x = 10; 
+	var innerFunc = function () { 
+		console.log(x); 
+	}; 
+	return innerFunc;
+} 
+/** 
+* 함수 outerFunc를 호출하면 내부 함수 innerFunc가 반환된다. 
+* 그리고 함수 outerFunc의 실행 컨텍스트는 소멸한다. 
+* */ 
+
+var inner = outerFunc();
+inner(); // 10
+
+```
+
+**외부 함수 outerFunc**는 **내부 함수 innerFunc**를 반환하고 생명주기를 잃게 됩니다. 그렇지만 outerFunc 지역변수 `x`를 접근할 수 있는 모습을 보입니다. 이렇게 참조되는 외부함수(outerFunc) 변수를 **자유변수(Free variable)**이라고 부릅니다.
+
+이렇게 참조가 가능한 이유는 내부함수가 유효한 상태에서 외부함수가 종료해 반환되어도 외부 함수내의 활성 객체(Activation object: 변수, 함수 선언 정보를 가진)는 **내부 함수에 의해 참조되는 한 유효하며 스코프 체인을 통해 참조**할 수 있게 됩니다. 
+
+![image](https://user-images.githubusercontent.com/60251579/192228970-e36c0242-52d4-4cfe-93c3-f9c30698b421.png)
+
+이와 같이 **반환 된 내부 함수가 자신이 선언됐을 때의 환경인 스코프를 기억하여, 이전 환경 밖에서 호출되어도 그 환경에 접근할 수 있는 함수**를 **클로져(Closer)**라고 합니다.
 
 
 
+## 클로져는 어디에 사용하나요?
 
-
-
-
-
-### 전역 변수
-
+코드의 복잡성을 줄일 수도 있지만, 자칫하면 참조되는 상황이 발생해 GC(Gabage collector)
