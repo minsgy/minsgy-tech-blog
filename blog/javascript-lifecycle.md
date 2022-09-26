@@ -1,6 +1,6 @@
 ---
-slug: JavaScript의 생명주기(Scope)
-title: JavaScript의 생명주기(Scope)
+slug: JavaScript 생명주기(Scope)
+title: JavaScript 생명주기(Scope)
 authors: [minsgy]
 tags: [JavaScript, DeepDive, Study]
 ---
