@@ -135,4 +135,38 @@ inner(); // 10
 
 ## 클로져는 어디에 사용하나요?
 
-코드의 복잡성을 줄일 수도 있지만, 자칫하면 참조되는 상황이 발생해 GC(Gabage collector)
+코드의 복잡성을 줄일 수도 있지만 자칫하면 참조되는 상황이 발생해 **GC(Garbage Collector)** 가 발생하지 않는 문제가 나타날 수 있습니다. 이러한 점을 고려해 클로저를 활용한 사례를 확인해보겠습니다.
+
+
+### 1. 전역 변수 줄이기
+
+```js
+
+// 기존
+const likeButton = document.querySelector('button')
+likeButton.addEventListener('click', handleClick)
+
+let count = 0 // 전역 변수 선언으로 인한 문제들이 많음
+function handleClick() {
+	count++
+	return count
+}
+
+// 클로져 사용
+const likeButton = document.querySelector('button')
+likeButton.addEventListener('click', handleClick())
+
+function handleClick() {
+	let count = 0 // 렉시컬 환경을 참조하는 함수 likeButton의 callback 함수를 활용하여 전역 변수 없이 구현
+	return function() {
+		count++
+		return count
+	}
+}
+
+
+
+
+
+```
+
