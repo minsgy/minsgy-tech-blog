@@ -165,5 +165,94 @@ function handleClick() {
 }
 ```
 
-전역 변수라기에는 
+클로져를 사용하여 아래 로직과 같이 모듈화한 함수에서만 사용하는 종속적인 변수를 선언합니다. 이를 통해 **메소드(Method) 역할이 구분**되어 사용할 수도 있을 뿐만 아니라 기본적인 전역 스코프에 대한 문제가 해결되어 **인터페이스(Interface) 복잡성이 낮아지게 됩니다.** 
 
+
+
+
+### 2. 함수형 방식 모듈화 
+
+클로저는 **함수형 프로그래밍의 일급 객체(first-class) 개념을 인용하여 스코프(Scope)에 묶인 변수를 바인딩하기 위한 일종의 기술**입니다. 이러한 일급 객체 개념을 활용하여 함수를 저장한 레코드(Record) 역할로 활용할 수 있습니다.
+
+```js
+    function makeSizer(size) {
+      return function() {
+        document.body.style.fontSize = size + 'px';
+      };
+    }
+
+    var size12 = makeSizer(12);
+    var size14 = makeSizer(14);
+    var size16 = makeSizer(16);
+```
+
+위와 같은 함수형 개념을 통해 외부 함수의 파라미터를 갖고 다른 요소에 의해 넓은 확장성을 가질 뿐만 아니라 내부에 들어가는 로직을 감출 수 있다는 Private한 특징을 가지게 됩니다. 
+JavaScript 태생에 존재하지 않는 메소드를 구현하여 제한적인 접근만 허용**할 수 있게 만듭니다.
+
+
+
+### 3. React Hook 
+
+
+```jsx
+import React, { useEffect, useState, useCallback } from 'react';
+
+// Timer를 나타내는 컴포넌트
+const TimerComponent = () => {
+  const [count, setCount] = useState(1);
+
+  const incrementCount = useCallback(() => {
+    setCount(count + 1);
+  }, []); // empty dependancy
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      incrementCount();
+    }, 1000);
+    
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []); // empty dependancy
+
+  // 결과는 2에서 멈춘다.
+  return <div>{`Timer started: ${count}`}</div>; 
+};
+```
+
+해당 로직은 매 초마다 값이 1씩 증가하는 타이머 컴포넌트입니다. 그렇지만 의도한대로 작동하지 않고 2에서 타이머가 멈추게 됩니다. 의존성 배열에 의해, 한번의 렌더링만 일어나게 되어 함수가 기억하는 값은 여전히 1이기 때문에 타이머가 변하지 않게 됩니다.
+
+즉, useEffect hook 실행 시점에 incrementCount 함수는 count가 1인 환경을 기억하고 있습니다. 이후 count가 업데이트 되어 함수가 새로 변경되어도 useEffect에서 처음 1을 기억하는 함수를 실행하게 됩니다. 이로 인해 count 값이 증가하지 않게 되거나 **useEffect가 실행되지 않아 Timer 값이 변화가 없게 되는 결과**를 보입니다.
+
+useEffect 뿐만 아니라 useCallback에서도 클로저 개념을 활용하여 렉시컬 환경을 관리하게 됩니다. 이를 통해 Hook을 사용 할 시 의존성 배열 관리를 통해 렉시컬 환경을 변화시킬 수 있다는 점에 있어서 의도한 결과를 내도록 주의해야 합니다. useState의 업데이트 방식도 클로저를 활용합니다.
+
+### bonus. useState의 업데이트 구현 방식
+
+```jsx
+let _value; // Array
+
+export useState(initialValue){
+  if (_value === 'undefined') {
+    _value = initialValue;
+  }
+  const setValue = newValue => {
+    _value = newValue;
+  }
+  
+  return [_value, setValue];
+}
+```
+
+useState 밖에 선언된 변수 `_value`가 있습니다. useState에서는 초기값(initialValue)를 받아 만약 기존 `_value` 값이 없으면 초기값으로 세팅하게 됩니다. setValue 함수는 받아오는 값으로 전역 `_value`를 업데이트하게 되면서  `_value`와 `setValue` 함수를 배열 형태로 반환한다. useState가 어디에서 실행되었건, 클로저를 통해 `_value` 값에 접근할 수 있는 구조를 가지게 됩니다.
+
+결과적으로 useState를 통해 생성한 상태를 접근하고 유지하기 위해서 useState 바깥쪽에 state를 저장하여 선언 된 컴포넌트를 구별할 수 있는 key로 접근하게 되고 배열 형식으로 저장되게 됩니다. useState 안에서 선언되는 상태들은 `_value` 배열에 순서대로 저장되는 원리입니다.
+
+
+
+
+
+## Reference
+
+[useState와 클로저](https://yeoulcoding.tistory.com/149#recentEntries)  
+[클로저 MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures)  
+[클로저에 대하여](https://poiemaweb.com/js-closure)  
