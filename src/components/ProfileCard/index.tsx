@@ -13,7 +13,7 @@ export const ProfileCard = ({ name }: ProfileCardProps) => {
         src="https://avatars.githubusercontent.com/u/60251579?v=4"
       />
       <Description>
-        <NameBox>경험으로 성장하는 프론트엔드 개발자 {name}입니다.</NameBox>
+        <NameBox>경험을 통해 성장하는 프론트엔드 개발자 {name}입니다.</NameBox>
         <p>
           쏘카(SOCAR)에서 주니어 프론트엔드 개발자로 재직중입니다.
           <br />

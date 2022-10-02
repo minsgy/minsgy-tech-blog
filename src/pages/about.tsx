@@ -5,7 +5,7 @@ import { ProfileCard } from "../components/ProfileCard";
 const About = () => {
   return (
     <Layout>
-      <CustomLayout maxWidth={660}>
+      <CustomLayout maxWidth={960}>
         <ProfileCard name="최민석" />
       </CustomLayout>
     </Layout>
