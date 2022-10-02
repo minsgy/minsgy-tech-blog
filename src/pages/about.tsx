@@ -1,11 +1,12 @@
 import React from "react";
 import Layout from "@theme/Layout";
 import { CustomLayout } from "../layouts/CustomLayout";
+import { ProfileCard } from "../components/ProfileCard";
 const About = () => {
   return (
     <Layout>
       <CustomLayout maxWidth={660}>
-        안녕하세요 프론트엔드 개발자 최민석입니다.
+        <ProfileCard name="최민석" />
       </CustomLayout>
     </Layout>
   );
