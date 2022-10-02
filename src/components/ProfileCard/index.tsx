@@ -12,10 +12,13 @@ export const ProfileCard = ({ name }: ProfileCardProps) => {
         alt="프로필 사진"
         src="https://avatars.githubusercontent.com/u/60251579?v=4"
       />
-      <NameBox>
-        안녕하세요. 꾸준한 경험으로 성장하는 개발자 {name}입니다
-      </NameBox>
-      <Description></Description>
+      <Description>
+        <NameBox>경험으로 성장하는 프론트엔드 개발자 {name}입니다.</NameBox>
+        <p>
+          쏘카(SOCAR)에서 주니어 프론트엔드 개발자로 재직중입니다.
+          <br />
+        </p>
+      </Description>
     </Wrapper>
   );
 };
@@ -33,7 +36,8 @@ const ImageBox = styled.img`
 `;
 
 const NameBox = styled.h2`
-  font-size: 1.5rem;
+  font-family: "GmarketSansMedium", sans-serif;
+  font-size: 1.2rem;
   font-weight: 700;
   line-height: 1.5;
 `;
