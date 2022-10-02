@@ -7,9 +7,19 @@ interface ProfileCardProps {
 }
 
 export const ProfileCard = ({ name, description }: ProfileCardProps) => {
-  return <div>index</div>;
+  return (
+    <Wrapper>
+      <ImageBox />
+    </Wrapper>
+  );
 };
+
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 const ImageBox = styled.div`
   width: 100%;
+  border-radius: 50%;
 `;
