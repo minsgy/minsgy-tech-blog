@@ -38,7 +38,7 @@ JavaScript에서는 객체의 프로퍼티에 대한 속성을 설정할 수 있
 `[[HasInstance]]`: 프로퍼티가 생성자 함수인 경우 인스턴스를 생성할 수 있는지 여부를 나타냅니다.
 
 
-### 내부 슬롯 다루기
+### 내부 슬롯(프로퍼티 어트리뷰트) 다루기
 
 기본적으로 내부 슬롯은 JavaScript 엔진 내부에 존재하기 때문에 접근하거나 호출할 수 있는 방법이 존재하지 않습니다. 그렇지만 일부 내부 슬롯과 내부 메소드에 한해서 참조 방법으로 접근할 수 있습니다.
 
@@ -49,4 +49,19 @@ object.[[Prototype]] // "error" 내부 슬롯은 JS 엔진 내부 로직으로 �
 object.__proto__ // Object.prototype 참조할 수 있는 내부 메소드 제공
 ```
 
-위와 같은 방법 외에도 JavaScript 엔진 특징으로 프로퍼티가 생성 될 때 
+위와 같은 방법 외에도 JavaScript 엔진 특징으로 **프로퍼티가 생성 될 때 이러한 프로퍼티를 상태 관리할 수 있는 프로퍼티 어트리뷰트가 기본 값으로 자동 정의**되게 됩니다. `value`, `writable`, `enumerable`, `configurable`와 같은 상태를 확인할 수 있습니다. 즉, 해당되는 내부 슬롯이 생성되게 된다는 뜻입니다.
+
+이러한 프로퍼티 어트리뷰트 값 상태를 확인하는 메소드는 `getOwnPropertyDescript` 가 있습니다.
+
+```js
+const minsgy = {
+	age: 24
+}
+console.log(Object.getOwnPropertyDescriptor(minsgy, 'age'))
+// { value: 24, writable: true, emumerable: true, configurable: true }
+```
+
+
+## 프로토타입 Prototype
+
+위와
