@@ -66,5 +66,27 @@ console.log(Object.getOwnPropertyDescriptor(minsgy, 'age'))
 
 ## 프로토타입 Prototype
 
-JavaScript에서는 클래스 기반을 사용하고 있는 다른 언어(Java, C++)와 달리 프로토타입 기반의 프로그래밍 언어입니다. 
+JavaScript에서는 클래스 기반을 사용하고 있는 다른 언어(Java, C++)와 달리 **프로토타입 기반의 프로그래밍 언어**입니다. 클래스에서 사용하는 체 지향의 상속 개념을 프로토타입으로 사용할 수 있습니다.
+
+```js
+const student = {
+	name: 'Lee',
+	score: 90
+}
+
+
+console.log(student.hasOwnProperty('name')) // true
+console.log(student.__proto__ === Object.prototype)
+console.dir(student)
+```
+
+![image](https://user-images.githubusercontent.com/60251579/193508196-c5b6b2fa-c4e1-46ab-a37f-8781e00731cd.png)
+
+`student` 객체의 경우 `hasOwnProperty` 프로퍼티가 존재하지 않습니다. 그렇지만 사용할 수 있는 이유는 `__proto__` 프로퍼티에 의해서 사용할 수 있게 됩니다. 
+
+student 객체는 `__proto__` 프로퍼티로 부모 객체(prototype 객체)인 `Object.prototype`를 가리키고 있기 때문에 가능합니다. 이를 통해 클래스 객체 지향의 상속을 활용할 수 있게 됩니다.
+
+같은 이유로 `Array.prototype`은 다음과 같은 메소드를 상속받아 사용할 수 있습니다.
+
+![image](https://user-images.githubusercontent.com/60251579/193508729-1439f7d6-e466-450a-83d8-2c57f144b5fb.png)
 
