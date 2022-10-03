@@ -62,6 +62,9 @@ console.log(Object.getOwnPropertyDescriptor(minsgy, 'age'))
 ```
 
 
+이와 같이 내부 슬롯에서 존재하는 `[[Prototype]]`을 통해 JavaScript 동작 원리를 알아보겠습니다.
+
 ## 프로토타입 Prototype
 
-위와
+JavaScript에서는 클래스 기반을 사용하고 있는 다른 언어(Java, C++)와 달리 프로토타입 기반의 프로그래밍 언어입니다. 
+
