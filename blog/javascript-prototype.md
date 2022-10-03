@@ -68,6 +68,10 @@ console.log(Object.getOwnPropertyDescriptor(minsgy, 'age'))
 
 JavaScript에서는 클래스 기반을 사용하고 있는 다른 언어(Java, C++)와 달리 **프로토타입 기반의 프로그래밍 언어**입니다. 클래스에서 사용하는 체 지향의 상속 개념을 프로토타입으로 사용할 수 있습니다.
 
+
+
+### prototype chain
+
 ```js
 const student = {
 	name: 'Lee',
@@ -86,7 +90,96 @@ console.dir(student)
 
 student 객체는 `__proto__` 프로퍼티로 부모 객체(prototype 객체)인 `Object.prototype`를 가리키고 있기 때문에 가능합니다. 이를 통해 클래스 객체 지향의 상속을 활용할 수 있게 됩니다.
 
-같은 이유로 `Array.prototype`은 다음과 같은 메소드를 상속받아 사용할 수 있습니다.
+같은 이유로 `Array.prototype`을 상속받는 함수나 객체들은 다음과 같은 메소드를 상속받아 사용할 수 있습니다.
+
+이러한 개념을 prototype chain이라고 부릅니다.
 
 ![image](https://user-images.githubusercontent.com/60251579/193508729-1439f7d6-e466-450a-83d8-2c57f144b5fb.png)
 
+이처럼 모든 객체는 본인의 프로토타입 객체를 가리키는 `[[Prototype]]` 내부 슬롯을 갖으면서 상속을 사용할 수 있습니다. 그러나 함수 객체만의 `prototype` 프로퍼티가 따로 존재합니다. 
+
+### prototype property
+
+```js
+function Person(name) {
+  this.name = name;
+}
+
+const foo = new Person('Lee');
+
+console.dir(Person); // prototype 프로퍼티가 있다.
+console.dir(foo);    // prototype 프로퍼티가 없다.
+```
+
+`prototype` 프로퍼티는 함수 객체만 가지고 있으며, 함수 객체가 생성자로 사용될 때 이 함수를 통해 생성 될 **객체의 부모 역할을 하는 객체**를 가리키게 됩니다.
+
+
+### constructor property
+
+프로토타입 객체는 constructor 프로퍼티를 갖게됩니다. 이를 통해 자신을 생성한 객체를 가리킬 수 있습니다. 
+
+```js
+function Person(name) {
+  this.name = name;
+}
+
+const foo = new Person('Lee');
+
+// Person() 생성자 함수에 의해 생성된 객체를 생성한 객체는 Person() 생성자 함수이다.
+console.log(Person.prototype.constructor === Person);
+
+// foo 객체를 생성한 객체는 Person() 생성자 함수이다.
+console.log(foo.constructor === Person);
+
+// Person() 생성자 함수를 생성한 객체는 Function() 생성자 함수이다.
+console.log(Person.constructor === Function);
+```
+
+`Class` 의 개념이 되는 객체를 가리키게 됩니다. 
+예를 들어 표현하자면 `붕어빵 생성 된 인스턴스`라면 **붕어빵을 만든 틀**을 가리킬 수 있습니다.
+
+### 함수 리터럴 방식을 통한 선언
+
+함수를 정의하는 방법은 3가지로 **함수 선언식, 함수 표현식, new 연산자를 통한 생성자 함수**가 존재합니다. 
+
+```js
+
+// 함수 표현식 (함수 리터럴 방식)
+const square = function(number) { 
+	return number * number
+}
+
+// 함수 선언식 (기명 함수 표현식으로 변환 + 함수 리터럴 방식)
+const square2 = function square(number) {
+	return number * number
+}
+```
+
+두 가지 방법 다 함수 리터럴 방식을 사용하고 이러한 방식은 생성자 함수(Function)로 생성하는 것을 단순화한거로 볼 수 있습니다. 즉, 3가지 방법 다 **Function() 생성자 함수를 통해 함수 객체를 생성**합니다.
+
+new 연산자를 통해 생성 된 함수를 살펴보면 이와 같이 나타낼 수 있습니다.
+
+```js
+function Person(name, gender) { // 함수이기 때문에 prototype을 가지고있음.
+  this.name = name;
+  this.gender = gender;
+  this.sayHello = function () {
+    console.log('Hi! my name is ' + this.name);
+  };
+}
+
+const foo = new Person('Lee', 'male'); // 함수가 아니기때문에 내부 슬롯만
+
+console.dir(Person);
+console.dir(foo);
+
+console.log(foo.__proto__ === Person.prototype);                // ① true
+console.log(Person.prototype.__proto__ === Object.prototype);   // ② true
+console.log(Person.prototype.constructor === Person);           // ③ true
+console.log(Person.__proto__ === Function.prototype);           // ④ true
+console.log(Function.prototype.__proto__ === Object.prototype); // ⑤ true
+```
+
+![image](https://user-images.githubusercontent.com/60251579/193511804-5d52915f-e3c7-4379-8ef7-26c3008a1734.png)
+
+위와 가
