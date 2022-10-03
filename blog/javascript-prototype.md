@@ -182,4 +182,108 @@ console.log(Function.prototype.__proto__ === Object.prototype); // ⑤ true
 
 ![image](https://user-images.githubusercontent.com/60251579/193511804-5d52915f-e3c7-4379-8ef7-26c3008a1734.png)
 
-위와 가
+위와 같이 foo의 경우 함수 객체가 아니기때문에 `[[Prototype]]` 만 존재하게 되고, Person 함수의 경우 함수 객체이기 때문에 `prototype`이 존재하게 됩니다. 이를 통해 어떤 방식으로 함수를 선언해도 `Object.prototype` 객체를 상속받아 사용하게 됩니다.
+
+### 프로토타입 객체의 변경
+
+프로토타입의 특징으로 객체를 생성할 때 프로토타입은 결정되게 됩니다. 결정된 프로토타입의 객체는 다른 임의 객체로 변경할 수 있는데 이것은 **부모 객체인 프로토타입을 동적으로 변경할 수 있는 것을 의미**하게 됩니다. 즉, 객체의 상속을 구현할 수 있습니다.
+
+주의 할 점으로는 프로토타입 객체를 변경하게 됐을 시 객체 변경 시점에 따른 `[[Prototype]]` 바인딩 시점이 달라지게 됩니다.
+
+```js
+function Person(name) {
+  this.name = name;
+}
+
+var foo = new Person('Lee');
+
+// 프로토타입 객체의 변경
+Person.prototype = { gender: 'male' };
+
+  
+var bar = new Person('Kim');
+
+console.log(foo.gender); // undefined
+console.log(bar.gender); // 'male'
+
+console.log(foo.constructor); // ① Person(name)
+console.log(bar.constructor); // ② Object()
+```
+
+![image](https://user-images.githubusercontent.com/60251579/193512830-7aa13027-6eda-4a5a-8d19-48aed92e22f6.png)
+
+1. constructor 프로퍼티는 Person() 생성자 함수를 가리키고 있습니다.
+2. 프로토타입 객체 변경 이후에는 Person() 생성자 함수의 Prototype 프로퍼티가 가리키는 프로토타입 객체를 일반 객체로 변경하게 되면서 `prototype.constructor` 프로퍼티가 사라지게 됩니다. 결국` bar.constructor` 값은 `Object.prototype.constructor`인 Object() 생성자 함수가 됩니다.
+
+`Person.prototype`은 `Person` 생성자 함수를 가리키지 않고 Object.prototype을 가리키게 되는 문제가 발생하게 됩니다. 의도하지 않은 프로토타입 체인이 이루어져 상속해 **사용할 수 있는 메소드에 대한 오류가 발생할 수 있다는 점**을 고려해야합니다. 
+
+변경되는 시점에 따라 바인딩되는데 이를 통해 만들 수 있는 코드 디자인 패턴을 소개합니다.
+
+
+### 이를 활용한 Prototype 디자인 패턴
+
+프로토타입의 특징인 원형이 되는 인스턴스를 사용해 새롭게 생성 할 객체의 종류를 명시해서 **새로운 객체가 생성 될 시점에 인스턴스 타입을 결정하도록 하는 디자인 패턴**입니다.
+
+![image](https://user-images.githubusercontent.com/60251579/193514052-5afd2bc2-640b-46d8-906f-15971e7f5517.png)
+
+이렇게 클라이언트는 Prototype 인터페이스를 따르는 모든 객체를 복사해서 인스턴스를 생성할 수 있습니다. **구현 클래스에 의존하지 않고, 써드 파티에 종속되지 않는 경우 사용할 수 있습니다.**
+
+
+#### 예제
+
+```js
+
+const Component = function (x, y, c) {
+   getPosX()
+   getPosY()
+   getColor()
+   getRadius()
+   ... // 좌표 계산 등
+}
+
+// Component 객체 상속하기
+const Circle = function (x, y, c) {
+	Component.call(this, x, y, c)
+}
+
+Circle.prototype = Object.create(Component.prototype)
+Circle.prototype.constructor = Circle
+
+
+// 추가로 필요한 변수 및 함수를 선언
+Circle.prototype.radius = 0;
+Circle.prototype.getRadius = function(){...}
+Circle.prototype.setRadius = function(r){...}
+
+
+// ---- main ---
+
+const circle = new Circle()
+
+circle.getPosX();
+circle.getPosY();
+circle.getColor();
+circle.getRadius();
+```
+
+
+#### 장점
+
+-  구현 클래스에 직접 연결하지 않고 객체를 복사할 수 있습니다. (컴포넌트)
+-  프로토타입 상속 되어 있어서 복잡한 오브젝트를 쉽게 구성할 수 있고 중복 코드를 제거할 수 있습니다. 
+- 그 외로 객체 단위를 컴포넌트처럼 활용하여 확장성도 고려할 수 있다는 점이 매력입니다.
+
+
+#### 단점
+
+가장 문제가 될 수 있는 단점으로 서로 의존되어 있는 관계일 시, 상속되는 프로토타입 패턴을 적용하기가 어렵습니다. 순환 참조가 발생하여 복잡한 객체를 불러 올 시 의존성을 갖고 있는 프로토타입을 활용한다면 문제가 발생할 수 있습니다.
+
+
+
+
+## Reference 
+
+
+- [mdn prototype](https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/Object_prototypes)
+- [mdn new 연산자](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/new)
+- 모던 자바스크립트 DeepDive
