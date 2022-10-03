@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkweb=self.webpackChunkweb||[]).push([[9228],{4087:e=>{e.exports=JSON.parse('[{"label":"JavaScript","permalink":"/blog/tags/java-script","count":3},{"label":"DeepDive","permalink":"/blog/tags/deep-dive","count":3},{"label":"Study","permalink":"/blog/tags/study","count":3}]')}}]);
