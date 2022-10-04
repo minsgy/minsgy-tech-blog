@@ -174,6 +174,7 @@ console.log(Function.prototype.__proto__ === Object.prototype); // ⑤ true
 ```
 
 ![image](https://user-images.githubusercontent.com/60251579/193511804-5d52915f-e3c7-4379-8ef7-26c3008a1734.png)
+(참고. poieweb - prototype)
 
 위와 같이 foo의 경우 함수 객체가 아니기때문에 `[[Prototype]]` 만 존재하게 되고, Person 함수의 경우 함수 객체이기 때문에 `prototype`이 존재하게 됩니다. 이를 통해 어떤 방식으로 함수를 선언해도 `Object.prototype` 객체를 상속받아 사용하게 됩니다.
 
@@ -203,7 +204,7 @@ console.log(bar.constructor); // ② Object()
 ```
 
 ![image](https://user-images.githubusercontent.com/60251579/193512830-7aa13027-6eda-4a5a-8d19-48aed92e22f6.png)
-
+(참고. poieweb - prototype)
 1. constructor 프로퍼티는 Person() 생성자 함수를 가리키고 있습니다.
 2. 프로토타입 객체 변경 이후에는 Person() 생성자 함수의 Prototype 프로퍼티가 가리키는 프로토타입 객체를 일반 객체로 변경하게 되면서 `prototype.constructor` 프로퍼티가 사라지게 됩니다. 결국` bar.constructor` 값은 `Object.prototype.constructor`인 Object() 생성자 함수가 됩니다.
 
@@ -216,6 +217,7 @@ console.log(bar.constructor); // ② Object()
 프로토타입의 특징인 원형이 되는 인스턴스를 사용해 새롭게 생성 할 객체의 종류를 명시해서 **새로운 객체가 생성 될 시점에 인스턴스 타입을 결정하도록 하는 디자인 패턴**입니다.
 
 ![image](https://user-images.githubusercontent.com/60251579/193514052-5afd2bc2-640b-46d8-906f-15971e7f5517.png)
+(참고. poieweb - prototype)
 
 이렇게 클라이언트는 Prototype 인터페이스를 따르는 모든 객체를 복사해서 인스턴스를 생성할 수 있습니다. **구현 클래스에 의존하지 않고, 써드 파티에 종속되지 않는 경우 사용할 수 있습니다.**
 
