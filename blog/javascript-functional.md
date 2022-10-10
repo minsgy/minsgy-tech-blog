@@ -41,4 +41,146 @@ tags: [JavaScript, DeepDive, Study]
 
 사실 두 패러다임을 비교하기에는 고유한 문제들이 있습니다. 
 
-함수형 프로그래밍의 경우, 복잡한 로직을 구상하게 되면 너무 많은 종속성 주입 된 코드들이 존재하며, OOP에는 너무 많은 레이어를 통한 코드가 나오게 됩니다. 그렇지만 두 가지 패러다임으
+함수형 프로그래밍의 경우, 복잡한 로직을 구상하게 되면 너무 많은 종속성 주입 된 코드들이 존재하며, OOP에는 너무 많은 레이어를 통한 코드가 나오게 됩니다. 
+
+결국 **각 장단점을 고려해서 주입해야 하는 개발자의 몫**이라고도 생각이 됩니다. 
+
+
+
+## 함수형 방식의 JavaScript
+
+사실 JavaScript를 통한 완벽한 함수형 프로그래밍은 어려울 수 있지만 전반적인 개념들을 정의하여 사용할 수 있습니다.
+
+```js
+// map, reduce, filter는 함수형에 속한다.
+// 기존 변수에 대한 사이드 이펙트로 없도록 구현하는 것이 원칙.
+
+// map
+const arr = [1,2,3,4,5];
+const map = arr.map(function(x) { 
+ return x * 2;
+}); // [2,4,6,8,10]
+
+// filter
+const arr = [4, 15, 377, 395, 400, 1024, 3000];
+const arr2 = arr.filter((v) => (v % 5 === 0));
+console.log(arr2) // [15, 395, 400, 3000]
+
+// reduce
+let arr = [9, 2, 8, 5, 7];
+let sum = arr.reduce((pre, val) => pre + val);
+console.log(sum) // 31
+```
+
+JavaScript에서 함수형 개념들을 어떻게 다루는 지 정의 해봅니다.
+
+
+### 평가
+
+평가는 코드가 **계산(Evalution)** 되어 값을 만드는 것을 말합니다.
+
+
+```js
+1 + 2 = 3
+(1 + 2) + 4 = 7
+[1, 2+3] = [1, 5]
+[1, 2, [3, 4]] = [1, 2, Array(2)]
+```
+
+### 일급 객체(일급)
+
+값, 변수, 함수 프로퍼티, 함수 결과를 사용할 수 있음을 말합니다. 함수가 값으로도 다루어질 수 있으며 **조합성과 추상화 도구로서 기본적인 함수형 프로그래밍의 틀**이라 할 수 있습니다.
+
+```js
+// 일급
+const value = 10;
+const add_value_10 = a => a + 10;
+const result = add_value_10(value);
+console.log(result); // 20;
+
+// 일급 객체
+const add_5 = a => a + 5;
+console.log(add_5); // a => a + 5;
+console.log(add_5(5)); // 10
+
+const func_1 = () => () => 1;
+console.log(func_1()); // () => 1
+
+const func_2 = func_1();
+console.log(func_2); // () => 1
+console.log(func_2()); // 1
+```
+
+
+
+### 고차 함수와 합성 함수
+
+함수를 값으로 다루는 함수, 함수의 반환 값으로 함수를 사용(Closer)하는 걸 말할 수 있습니다. 
+React에서 사용하는 고차 컴포넌트(HOC)가 이에 해당 됩니다.
+
+```js
+// 함수 로직을 보내서 개조
+const higher-order = func => func(1);
+const add_2 = a => a + 2;
+console.log(higher-order(add_2)); // 3
+console.log(higher-order(a => a - 1)); // 0
+
+// Closer + 합성 함수
+const add_func = a => b => a + b;
+const add_10 = add_func(10);
+console.log(add_10(5)); // 15
+console.log(add_10(10)); // 20
+console.log(add_function(10)(5)); // 15 
+```
+
+
+그 외로도 함수형 프로그래밍의 개념들을 적용한 사례를 살펴보겠습니다.
+
+### 불변성
+
+함수형 프로그래밍에서는 함수 외부의 데이터를 변경하지 않도록 합니다. 
+
+만약 데이터 변경이 필수적일 경우, 원본 데이터를 변경하지 않고 그 데이터의 복사본을 만들어 변경 작업을 진행할 수 있습니다.
+
+```js
+const red = { name:'red' };
+
+// 원본 데이터를 변경하는 방법
+funcion changeColor(color,name){
+   color.name = name;
+   return color;
+}
+console.log(changeColor(red,'yellow')); //{name:'yellow'}
+console.log(red); //{name:'yellow'}
+
+// 불변성을 지키는 방법.
+function changeColor(color,name){
+   return Object.assign({},color,{name}); // 복사해서 사용하는 slice도 가능합니다.
+}
+
+console.log(changeColor(red,'yellow')); //{name: 'yellow'}
+console.log(red.name); //{name: 'red'}
+```
+
+그 외로도 JavaScript에서 지원하는 불변성을 기반해 데이터 복사본을 제공하는 메소드를 활용할 수 있습니다.
+
+```js
+// map
+const arr = ['foo', 'hello', 'diamond', 'A'];
+const arr2 = arr.map((v) => v.length);
+console.log(arr2) // [3, 5, 6, 1]
+
+// filter
+const arr = [4, 15, 377, 395, 400, 1024, 3000];
+const arr2 = arr.filter((v) => (v % 5 === 0));
+console.log(arr2) // [15, 395, 400, 3000]
+
+// reduce
+let arr = [9, 2, 8, 5, 7];
+let sum = arr.reduce((pre, val) => pre + val);
+console.log(sum)	// 31 
+```
+
+
+
+## 모나드 개념
