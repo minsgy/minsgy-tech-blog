@@ -182,5 +182,7 @@ console.log(sum)	// 31
 ```
 
 
+## Reference
 
-## 모나드 톺아보기
+- [Functional vs OPP](https://medium.com/@shaistha24/functional-programming-vs-object-oriented-programming-oop-which-is-better-82172e53a526)
+- [Functional wiki](https://en.wikipedia.org/wiki/Functional_programming)
