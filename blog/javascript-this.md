@@ -12,6 +12,16 @@ tags: [JavaScript, DeepDive, Study]
 
 ## this란?
 
+
+```js
+
+const minseok = {
+	na
+}
+
+```
+
+
 `this` 키워드는 기본적으로 하나의 객체(인스턴스)를 가리키게 됩니다. 
 예시를 들면 C++에서 `this`는 클래스로부터 생성 된 현재의 객체를 가리킵니다. 이와 같이 JavaScript도 의미가 근본적으로 비슷하지만 또 다르게 사용됩니다.
 
@@ -19,4 +29,5 @@ tags: [JavaScript, DeepDive, Study]
 
 > JavaScript에서 **함수의 `this` 키워드**는 다른 언어와 조금 다르게 동작합니다. 또한 [엄격 모드](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Strict_mode)와 비엄격 모드에서도 일부 차이가 있습니다.
 
-이를 통해 
+이러한 특징을 가지고 있는 JavaScript의 this가 어떻게 사용되는 지 알아보겠습니다.
+
