@@ -11,9 +11,7 @@ tags: [TypeScript, React, react-query, optimization, fetch]
 - 제공하는 API는 매 건당 6.6원의 비용이 발생했었는데 서비스 사용자가 많을 수록 굉장히 많은 호출이 이루어지다보니 비용적인 부담이 있었습니다.
 - 이러한 비용을 최적화하기 위해서는 최대한 효율적으로 API 호출을 해야 했고 해당 과정을 포스팅하게 되었습니다. 이번 포스팅에서는 API를 비용을 최적화하기 위한 방법을 알아보겠습니다.
 
-<div style="text-align: center;">
-<img width="422" alt="image" src="https://user-images.githubusercontent.com/60251579/230732355-57269939-20f5-4122-8cd0-f5e2ad015d20.png">
-</div>
+![image](https://user-images.githubusercontent.com/60251579/230732355-57269939-20f5-4122-8cd0-f5e2ad015d20.png)
 
 ## 문제 상황
 
