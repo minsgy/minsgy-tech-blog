@@ -94,18 +94,21 @@ tags: [TypeScript, React, react-query, optimization, fetch]
 
 에 대한 서비스 특징을 고려하여 적절한 방법을 선택해야 한다고 생각합니다.
 
-## 결론 및 개선할 수 있는 법
+## 결론
 
 API 비용을 최소화하기 위해 데이터 캐싱을 사용하는 방법에 대해 고민해보았습니다.
 
-- queryKey를 통한 데이터 캐싱 방법
-- Storage를 통해 유효한 데이터 캐싱을 위한 방법
+    - queryKey를 통한 데이터 캐싱 방법
+    - Storage를 통해 유효한 데이터 캐싱을 위한 방법
 
-위의 두 가지 방법을 통해 API 비용을 최소화할 수 있었습니다. 하지만 **queryKey로만 원하는 방식의 데이터 캐싱 관리는 불가능**했고 **Storage를 통해 유효한 데이터 캐싱을 위한 방법**을 사용했습니다.  
+위의 두 가지 방법을 통해 API 비용을 최소화할 수 있었습니다.
+
+하지만 **queryKey로만 원하는 방식의 데이터 캐싱 관리는 불가능**했고 **Storage를 통해 유효한 데이터 캐싱을 위한 방법**을 사용했습니다.
+
 또한, **캐싱된 데이터가 실제 데이터와 다를 수 있다.** 라는 문제점이 있었습니다.
 
-## (부록) react-query에서 제공하는 persistance 기능
+### react-query에서 제공하는 persistance 기능
 
 - react-query에서는 [persistQueryClient](https://tanstack.com/query/v4/docs/react/plugins/persistQueryClient) 기능을 제공합니다.
-  - 이를 통해 위에서만든 `useCustomCacheQuery` 커스텀 훅을 사용하지 않고도 캐싱된 데이터를 사용할 수 있습니다.
-  - 다만, 아직 react-query v4에서는 `persistQueryClient` 기능이 stable 버전이 아니기 때문에 사용에 주의가 필요합니다.
+- 직접 `useCustomCacheQuery` 커스텀 훅을 만들지 않고도 캐싱된 데이터를 사용할 수 있습니다.
+- 아직 `react-query v4`에서는 `persistQueryClient` 기능이 stable 버전이 아니기 때문에 사용에 주의가 필요합니다.
