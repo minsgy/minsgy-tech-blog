@@ -1,6 +1,6 @@
 ---
-slug: fetching 최적화를 통한  API 비용 최적화를 해보자.
-title:
+slug: 데이터 패칭 최적화를 통한 API 비용 최적화
+title: 데이터 패칭 최적화를 통한 API 비용 최적화
 authors: [minsgy]
 tags: [TypeScript, React, react-query, optimization, fetch]
 ---
