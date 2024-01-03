@@ -72,12 +72,6 @@ const config = {
           src: 'img/logo.png',
         },
         items: [
-          // {
-          //   type: 'doc',
-          //   docId: 'intro',
-          //   position: 'left',
-          //   label: '독서노트',
-          // },
           {to: '/blog', label: '기록장', position: 'left'},
           {to: '/about', label: '소개', position: 'left'},
           {
@@ -90,15 +84,6 @@ const config = {
       footer: {
         style: 'dark',
         links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/intro',
-              },
-            ],
-          },
           {
             title: 'More',
             items: [

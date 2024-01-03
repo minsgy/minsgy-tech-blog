@@ -1,8 +1,12 @@
 ---
 slug: JavaScript Runtime에 대하여
 title: JavaScript Runtime에 대하여
-authors: [minsgy]
-tags: [JavaScript, DeepDive, Study]
+authors:
+  - minsgy
+tags:
+  - JavaScript
+  - DeepDive
+  - Study
 ---
 
 ## 서론
