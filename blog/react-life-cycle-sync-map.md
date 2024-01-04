@@ -1,6 +1,6 @@
 ---
-slug: React 환경에서 Google Map을 사용해보자.
-title: React 환경에서 Google Map을 사용해보자.
+slug: React 환경에서 Google Map API 사용하기
+title: React 환경에서 Google Map API 사용하기
 authors: [minsgy]
 tags: [React, GoogleMaps]
 ---
@@ -230,17 +230,63 @@ useEffect(() => {
 
 `useDeepCompareEffect`란?
 
-> `useEffect`와 동일한 기능을 가지고 있지만, `useEffect`는 `deps`에 전달된 값이 변경되면 `useEffect`가 실행되지만, `useDeepCompareEffect`는 `deps`에 전달된 값이 변경되어도 `useEffect`가 실행되지 않습니다.
+> `useEffect`와 동일한 기능을 가지고 있지만, `useEffect`는 `deps`에 전달된 값이 변경되면 `useEffect`가 실행되지만, `useDeepCompareEffect`는 깊은 비교를 통해 값이 변경되었는지 확인하고 변경되었을 때에만 `useEffect`가 실행되도록 구현되어 있습니다.
 
-실제로 발생했던 이슈 중 하나로, 맵에서 제공하는 `Center`값과 `Zoom`값이 변경되면서 `onIdle` 함수가 계속 실행되는 사이클이 발생했고, onIdle에서 실행되는 Map 상태 변경 함수가 계속 실행되어 성능에 문제가 발생했습니다. 이를 해결하기 위해 `useDeepCompareEffect`를 활용하여 최적화를 고려해보겠습니다.
+실제로 발생했던 이슈 중 하나로, 맵에서 제공하는 `Center`값과 `Zoom`값이 변경되면서 `onIdle` 함수가 계속 실행되는 사이클이 발생했고, onIdle에서 실행되는 Map 상태 변경 함수가 계속 실행되어 성능에 문제가 발생했습니다. 이를 해결하기 위해 `useDeepCompareEffect`를 활용하여 맵의 zoom, center, bounds가 변경되어도 `onIdle` 함수가 실행되지 않도록 구현하였습니다.
 
-```tsx
+```ts
+// useDeepCompareEffect.ts
+import { createCustomEqual } from "fast-equals";
+const deepCompareEqualsForMaps = createCustomEqual((deepEqual) => (a, b) => {
+  if (
+    isLatLngLiteral(a) ||
+    a instanceof google.maps.LatLng ||
+    isLatLngLiteral(b) ||
+    b instanceof google.maps.LatLng
+  ) {
+    return new google.maps.LatLng(a).equals(new google.maps.LatLng(b));
+  }
+  return deepEqual(a, b);
+});
 
+const useDeepCompareMemoize = (value) => {
+  const ref = React.useRef();
+  // LatLngLiteral과 같은 객체를 비교하기 위해 deepCompareEqualsForMaps를 사용합니다.
+  if (!deepCompareEqualsForMaps(value, ref.current)) {
+    ref.current = value;
+  }
+
+  return ref.current;
+};
+
+export const useDeepCompareEffectForMaps = (
+  callback: React.EffectCallback,
+  dependencies: any[]
+) => {
+  React.useEffect(callback, dependencies.map(useDeepCompareMemoize));
+};
+
+// useControlledStateMap.ts
+useDeepCompareEffectForMaps(() => {
+  if (!map) return;
+  map.setOptions({
+    theme: mapTheme,
+    // ... 기타 옵션들
+  });
+}, [map]);
 ```
+
+결과적으로 Map의 Lat, Lng가 변경되어도(Center, Bounds 등) `onIdle` 함수가 실행되지 않도록 구현하였고 효율적인 렌더링을 할 수 있게 되었습니다.
+
+## 결론
+
+- 대부분의 제공하는 라이브러리 형태는 Vanila JavaScript 환경에서 사용할 수 있도록 예시가 구현되어 있습니다.
+- 사용할 수 있는 JavaScript Map API가 제공되어도 이를 React 환경에서 사용하기 위해서는 어떤 방식으로 접근해야 할 지 고민해야 합니다.
+- 시중에 제공되는 라이브러리를 살펴보면서 어떤 방식으로 접근해야 할 지 고민해보고, 이를 어떻게 추상화하여 사용할 수 있을 지 고민해보는 것이 중요합니다.
 
 ## reference
 
-- https://github.com/googlemaps/js-samples/pull/952/files#diff-b3b73656b5cd4af1ee5c0eb53e80dba22502ee655129075468e40416a31c51e5R211-R253
-- https://github.com/kentcdodds/use-deep-compare-effect/blob/main/src/index.ts#L2
-- https://thomasstep.com/blog/using-google-maps-and-search-with-react
-- https://developers.google.com/maps/documentation/javascript?hl=ko
+- [useDeepCompareEffect Git](https://github.com/kentcdodds/use-deep-compare-effect/blob/main/src/index.ts#L2)
+- [React로 Google 지도 사용하는 방법](https://thomasstep.com/blog/using-google-maps-and-search-with-react)
+- [Google Map API Docs](https://developers.google.com/maps/documentation/javascript?hl=ko)
+- [Google Map JavaScript API Loader Git](https://github.com/googlemaps/js-api-loader)
