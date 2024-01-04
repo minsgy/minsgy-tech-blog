@@ -1,14 +1,15 @@
 ---
-slug: React 환경에서 Google Map API 사용하기
-title: React 환경에서 Google Map API 사용하기
+slug: React 환경에서 JavaScript Google Map 구현하기
+title: React 환경에서 JavaScript Google Map 구현하기
 authors: [minsgy]
-tags: [React, GoogleMaps]
+tags: [React, GoogleMap]
 ---
 
 ## 서론
 
-Google Map 기반의 프로젝트를 진행하면서
-Google에서 제공해주는 JavaScript Map API는 React에서 바로 사용하기에 어려운 환경을 가지고 있습니다. DOM을 생성하는 시점에 Map을 생성하고, Map을 사용하는 시점에 DOM이 생성되어 있어야 하는데, React에서는 DOM을 생성하는 시점과 Map을 사용하는 시점이 다르기 때문에 문제가 발생합니다. 이러한 점을 고려해 React 라이프사이클 환경에서 Map을 사용하는 방법을 알아보고자 합니다.
+- Google Map 기반의 프로젝트를 진행하면서 Google에서 제공해주는 JavaScript Map API는 React에서 바로 사용하기에 어려운 환경을 가지고 있습니다.
+- DOM을 생성하는 시점에 Map을 생성하고 Map을 사용하는 시점에 DOM이 생성되어 있어야 하는데, React에서는 DOM을 생성하는 시점과 Map을 사용하는 시점이 다르기 때문에 문제가 발생합니다.
+- 이러한 점을 고려해 React 라이프사이클 환경에서 Map을 사용하는 방법을 알아보고자 합니다.
 
 ## Google Map JavaScript API
 
@@ -35,11 +36,16 @@ export {};
 
 ## React에서 Map을 사용하기 위한 방법
 
-리액트의 라이프사이클은 크게 mount, update, unmount로 나눌 수 있습니다. 위에서 살펴본 Google Map API를 사용하기 위해서는 mount 시점에 Map을 생성하며 update 시점에서의 최적화를 고려해야 합니다.
+리액트의 라이프사이클은 크게 mount, update, unmount로 나눌 수 있습니다.  
+위에서 살펴본 Google Map API를 사용하기 위해서는 mount 시점에 Map을 생성하며 update 시점에서의 최적화를 고려해야 합니다.
+
+또한, Map API를 호출하는 시점 이전에는 로딩 처리를 하며 Map API를 호출하는 시점 이후에는 Map의 기능들을 사용할 수 있도록 구현해야 합니다.
 
 ### Map API 호출 이전 시점
 
-리액트 DOM이 생성되고 난 이후에 Map을 생성해야 합니다. 제공되는 map의 생성 방식은 DOM에 의존적이여서 DOM이 생성되기 전에 Map API를 호출하여 생성하면 에러가 발생하게 되고, 이에 대한 로딩 처리를 해주어야 합니다.
+리액트 DOM이 생성되고 난 이후에 Map을 생성해야 합니다.
+
+> 제공되는 map의 생성 방식은 DOM에 의존적이여서 DOM이 생성되기 전에 Map API를 호출하여 생성하면 에러가 발생하게 되고, 이에 대한 로딩 처리를 해주어야 합니다.
 
 ```ts
 // Map.tsx
@@ -149,7 +155,6 @@ export const MapComponent = ({ children, ...options }) => {
       <div ref={mapRef} style={style} />
       {Children.map(children, (child) => {
         // children으로 받은 Map 기능들을 cloneElement를 통해 map을 전달하여 사용할 수 있도록 구현.
-        // 이렇게 구현하면 Map state가 변경될 때마다 MapComponent가 re-render되어 성능에 문제가 발생할 수 있다.
         if (isValidElement(child)) {
           return cloneElement(child as ReactElement<google.maps.MapOptions>, {
             map,
@@ -182,7 +187,7 @@ const Map = () => {
 
 ### onIdle 함수를 통한 Map 상태 변경
 
-google.maps.Map에서 제공하는 `onIdle` 함수를 통해 Map의 상태를 변경할 수 있습니다.  
+`google.maps.Map`에서 제공하는 `onIdle` 함수를 통해 Map의 상태를 변경할 수 있습니다.  
 이를 리액트 환경에서 사용하기 위해 `useEffect`를 통해 `onIdle` 함수를 등록하고, `onIdle` 함수에서 Map의 상태를 변경하는 함수를 호출하도록 구현하였습니다.
 
 ```ts
@@ -232,7 +237,8 @@ useEffect(() => {
 
 > `useEffect`와 동일한 기능을 가지고 있지만, `useEffect`는 `deps`에 전달된 값이 변경되면 `useEffect`가 실행되지만, `useDeepCompareEffect`는 깊은 비교를 통해 값이 변경되었는지 확인하고 변경되었을 때에만 `useEffect`가 실행되도록 구현되어 있습니다.
 
-실제로 발생했던 이슈 중 하나로, 맵에서 제공하는 `Center`값과 `Zoom`값이 변경되면서 `onIdle` 함수가 계속 실행되는 사이클이 발생했고, onIdle에서 실행되는 Map 상태 변경 함수가 계속 실행되어 성능에 문제가 발생했습니다. 이를 해결하기 위해 `useDeepCompareEffect`를 활용하여 맵의 zoom, center, bounds가 변경되어도 `onIdle` 함수가 실행되지 않도록 구현하였습니다.
+- 실제로 발생했던 이슈 중 하나로, 맵에서 제공하는 `Center`값과 `Zoom`값이 변경되면서 `onIdle` 함수가 계속 실행되는 사이클이 발생했고, onIdle에서 실행되는 Map 상태 변경 함수가 계속 실행되어 성능에 문제가 발생했습니다.
+- 이를 해결하기 위해 `useDeepCompareEffect`를 활용하여 맵의 zoom, center, bounds가 변경되어도 `onIdle` 함수가 실행되지 않도록 구현하였습니다.
 
 ```ts
 // useDeepCompareEffect.ts
