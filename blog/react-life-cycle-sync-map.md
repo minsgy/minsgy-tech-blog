@@ -1,6 +1,6 @@
 ---
-slug: React 환경에서 JavaScript Google Map 구현하기
-title: React 환경에서 JavaScript Google Map 구현하기
+slug: React 환경에서 Google Map 구현하기
+title: React 환경에서 Google Map 구현하기
 authors: [minsgy]
 tags: [React, GoogleMap]
 ---
