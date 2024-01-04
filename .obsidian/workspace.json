@@ -1,0 +1,168 @@
+{
+  "main": {
+    "id": "4d29221b3226e615",
+    "type": "split",
+    "children": [
+      {
+        "id": "bbb709cdd63213ae",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9b3e67f5d20ae391",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "blog/react-life-cycle-sync-map.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "bdc7130a983ea181",
+    "type": "split",
+    "children": [
+      {
+        "id": "7c25ff4a9722b6c9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "26c6ec603c8642fb",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "02be4962532b0f08",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "0ca73550b566e0fe",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "1e21839f7831c6d2",
+    "type": "split",
+    "children": [
+      {
+        "id": "955c38091a80f2c0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6072c2f45d516ba3",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "blog/react-life-cycle-sync-map.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "8ae40f62e0abf51d",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "blog/react-life-cycle-sync-map.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "22bbc05293a56f4e",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "d8a712a2fad5c2b4",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "blog/react-life-cycle-sync-map.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:퀵 스위처 열기": false,
+      "graph:그래프 뷰 열기": false,
+      "canvas:새 캔버스 만들기": false,
+      "daily-notes:오늘의 데일리 노트 열기": false,
+      "templates:템플릿 삽입": false,
+      "command-palette:명령어 팔레트 열기": false
+    }
+  },
+  "active": "9b3e67f5d20ae391",
+  "lastOpenFiles": [
+    "blog/javascript-runtime.md",
+    "blog/react-life-cycle-sync-map.md",
+    "blog/react-query-optimization.md",
+    "README.md",
+    "Pasted image 20221030200409.png",
+    "Pasted image 20221003143619.png",
+    "Pasted image 20221003141637.png",
+    "Pasted image 20221010172849.png",
+    "무제 파일.canvas",
+    "blog/react-life-cycle-map-sync.md",
+    "blog/javascript-functional.md",
+    "blog/javascript-lifecycle.md",
+    "blog/javascript-memory.md",
+    "blog/javascript-prototype.md",
+    "static/img/logo.png",
+    "static/img/docusaurus.png"
+  ]
+}
