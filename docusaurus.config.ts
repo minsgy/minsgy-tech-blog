@@ -17,7 +17,7 @@ const config: Config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "minsgy", // Usually your GitHub org/user name.
   projectName: "minsgy.github.io", // Usually your repo name.
-
+  trailingSlash: false,
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
 
