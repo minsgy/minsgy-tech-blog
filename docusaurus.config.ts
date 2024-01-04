@@ -18,7 +18,7 @@ const config: Config = {
   organizationName: "minsgy", // Usually your GitHub org/user name.
   projectName: "minsgy.github.io", // Usually your repo name.
   trailingSlash: false,
-  onBrokenLinks: "throw",
+  onBrokenLinks: "ignore",
   onBrokenMarkdownLinks: "warn",
 
   // Even if you don't use internationalization, you can use this field to set
@@ -66,7 +66,11 @@ const config: Config = {
       },
       items: [
         { to: "/blog", label: "기록장", position: "left" },
-        { to: "/about", label: "소개", position: "left" },
+        {
+          label: "Resume",
+          position: "left",
+          href: "https://www.figma.com/file/dI4ZSHhwnWStoM0hmTxy7p/MINSGY_RESUME?type=design&node-id=0%3A1&mode=design&t=0xeEZpNSoKT2kcF4-1",
+        },
         {
           href: "https://github.com/minsgy",
           label: "GitHub",
