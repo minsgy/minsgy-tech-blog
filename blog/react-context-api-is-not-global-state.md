@@ -2,7 +2,7 @@
 slug: 리액트에서 의존성 주입은 왜 필요하고 어떻게 사용하는가?
 title: 리액트에서 의존성 주입은 왜 필요하고 어떻게 사용하는가?
 authors: [minsgy]
-tags: [React, ContextAPI, Dependency Injection, 객체지향]
+tags: [React, ContextAPI, DependencyInjection, 객체지향]
 ---
 
 ## 서론
