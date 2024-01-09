@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[1228],{6480:e=>{e.exports=JSON.parse('{"label":"ContextAPI","permalink":"/blog/tags/context-api","allTagsPath":"/blog/tags","count":1,"unlisted":false}')}}]);
