@@ -143,6 +143,8 @@ const Greeting = ({ name }) => {
 
 의존성 주입을 통해 컴포넌트 간의 결합도를 낮추고 코드를 더 유연하게 만들 수 있습니다. 의존성 주입은 컴포넌트의 의존성을 명확하게 정의하고, 필요한 의존성을 주입함으로써 더욱 확장 가능하고 테스트 용이한 애플리케이션을 개발하는 데 도움을 줍니다.
 
+이를 통해 좀 더 변화에 유연한 코드를 작성할 수 있습니다.
+
 ## Refs.
 
 - [React Context for dependency injection not state management](https://blog.testdouble.com/posts/2021-03-19-react-context-for-dependency-injection-not-state/)
