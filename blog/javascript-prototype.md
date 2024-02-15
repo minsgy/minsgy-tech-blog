@@ -1,8 +1,9 @@
 ---
-slug: Prototype에 대하여
 title: Prototype에 대하여
 authors: [minsgy]
-tags: [JavaScript, DeepDive, Study]
+tags: ["JavaScript"]
+keywords: ["JavaScript", "Prototype", "프로토타입", "상속", "객체지향"]
+date: 2022-05-12
 ---
 
 ## 서론
@@ -205,6 +206,7 @@ console.log(bar.constructor); // ② Object()
 
 ![image](https://user-images.githubusercontent.com/60251579/193512830-7aa13027-6eda-4a5a-8d19-48aed92e22f6.png)
 (참고. poieweb - prototype)
+
 1. constructor 프로퍼티는 Person() 생성자 함수를 가리키고 있습니다.
 2. 프로토타입 객체 변경 이후에는 Person() 생성자 함수의 Prototype 프로퍼티가 가리키는 프로토타입 객체를 일반 객체로 변경하게 되면서 `prototype.constructor` 프로퍼티가 사라지게 됩니다. 결국` bar.constructor` 값은 `Object.prototype.constructor`인 Object() 생성자 함수가 됩니다.
 

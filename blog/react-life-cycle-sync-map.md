@@ -1,8 +1,19 @@
 ---
-slug: React 환경에서 Google Map 구현하기
 title: React 환경에서 Google Map 구현하기
 authors: [minsgy]
 tags: [React, GoogleMap]
+keywords:
+  [
+    "React",
+    "GoogleMap",
+    "JavaScript",
+    "API",
+    "Map",
+    "Google",
+    "Map API",
+    "Google Map",
+  ]
+date: 2023-09-16
 ---
 
 ## 서론

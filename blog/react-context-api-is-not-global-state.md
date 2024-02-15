@@ -1,8 +1,10 @@
 ---
-slug: 리액트 의존성 주입
 title: 리액트 의존성 주입
 authors: [minsgy]
-tags: [React, ContextAPI, DependencyInjection, 객체지향]
+tags: [React, ContextAPI, DependencyInjection]
+keywords:
+  ["React", "ContextAPI", "Dependency Injection", "객체지향", "의존성 주입"]
+date: 2023-10-16
 ---
 
 ## 서론

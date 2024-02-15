@@ -1,8 +1,9 @@
 ---
-slug: JavaScript Scope와 Closure
 title: JavaScript Scope와 Closure
 authors: [minsgy]
-tags: [JavaScript, DeepDive, Study]
+tags: ["JavaScript"]
+keywords: ["JavaScript", "Scope", "Closure"]
+date: 2022-03-01
 ---
 
 ## 서론

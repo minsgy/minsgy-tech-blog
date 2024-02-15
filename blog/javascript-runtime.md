@@ -1,12 +1,22 @@
 ---
-slug: JavaScript Runtime에 대하여
 title: JavaScript Runtime에 대하여
 authors:
   - minsgy
-tags:
-  - JavaScript
-  - DeepDive
-  - Study
+tags: ["JavaScript"]
+keywords:
+  [
+    "JavaScript",
+    "Runtime",
+    "V8",
+    "Node.js",
+    "Deno",
+    "Bun",
+    "런타임",
+    "자바스크립트",
+    "브라우저",
+    "서버",
+  ]
+date: 2023-03-20
 ---
 
 ## 서론

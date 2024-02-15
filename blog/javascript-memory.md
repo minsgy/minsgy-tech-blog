@@ -1,8 +1,18 @@
 ---
-slug: JavaScript 메모리 관리하기
 title: JavaScript 메모리 관리하기
 authors: [minsgy]
-tags: [JavaScript, DeepDive, Study]
+tags: ["JavaScript"]
+keywords:
+  [
+    "JavaScript",
+    "Memory",
+    "Garbage Collector",
+    "메모리 관리",
+    "GC",
+    "Garbage Collection",
+    "메모리 누수",
+  ]
+date: 2022-04-05
 ---
 
 ## 서론

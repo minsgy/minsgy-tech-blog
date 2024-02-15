@@ -1,8 +1,9 @@
 ---
-slug: 데이터 패칭 최적화를 통한 API 비용 최적화
 title: 데이터 패칭 최적화를 통한 API 비용 최적화
 authors: [minsgy]
 tags: [TypeScript, React, react-query, optimization, fetch]
+keywords: ["맵 최적화", "Google Map 최적화하기"]
+date: 2023-08-12
 ---
 
 ## 서론
