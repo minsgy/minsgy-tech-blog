@@ -1,4 +1,5 @@
 import { themes as prismThemes } from "prism-react-renderer";
+import { EnumChangefreq } from "sitemap";
 import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
 
@@ -50,6 +51,13 @@ const config: Config = {
         },
         theme: {
           customCss: "./src/css/custom.css",
+        },
+        gtag: {
+          trackingID: "G-MESEC84TJV",
+        },
+        sitemap: {
+          changefreq: EnumChangefreq.WEEKLY,
+          priority: 0.5,
         },
       } satisfies Preset.Options,
     ],
