@@ -75,11 +75,6 @@ const config: Config = {
       items: [
         { to: "/blog", label: "기록장", position: "left" },
         {
-          label: "Resume",
-          position: "left",
-          href: "https://www.figma.com/file/dI4ZSHhwnWStoM0hmTxy7p/MINSGY_RESUME?type=design&node-id=0%3A1&mode=design&t=0xeEZpNSoKT2kcF4-1",
-        },
-        {
           href: "https://github.com/minsgy",
           label: "GitHub",
           position: "right",
