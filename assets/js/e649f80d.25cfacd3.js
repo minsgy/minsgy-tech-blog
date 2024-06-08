@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[9493],{3745:e=>{e.exports=JSON.parse('{"label":"monolitic","permalink":"/blog/tags/monolitic","allTagsPath":"/blog/tags","count":1,"unlisted":false}')}}]);
