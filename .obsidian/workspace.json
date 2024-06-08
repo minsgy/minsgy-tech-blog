@@ -4,22 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "bbb709cdd63213ae",
+        "id": "0d645261f3a44b21",
         "type": "tabs",
         "children": [
           {
-            "id": "9b3e67f5d20ae391",
+            "id": "5fdf1e9fcc11bec8",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "blog/react-life-cycle-sync-map.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
-        ]
+        ],
+        "stacked": true
       }
     ],
     "direction": "vertical"
